@@ -45,14 +45,12 @@ task("mysql:dump", function () {
   $opts = implode(" ", $config["dump_options"]);
 
   # check for null schema
-  $schema_setting = key($schema);
   if (!$schema)
-    throw new ErrorException("A schema has not been specific for use. Please set the mysql.{$schema_setting} in your deployer configuration");
+    throw new ErrorException("A schema has not been specific for use. Please set the mysql.schema in your deployer configuration");
 
   # check for null dump file
-  $dump_file_setting = key($file);
   if (!$file)
-    throw new ErrorException("The mysql.{$dump_file_setting} has not been set. Please set this in your deployer configuration.");
+    throw new ErrorException("The mysql.dump_file has not been set. Please set this in your deployer configuration.");
 
   run("mysqldump -h {$host} -P {$port} -u {$username} -p{$password} {$opts} {$schema} > {{release_path}}/{$file}");
 });
@@ -70,14 +68,12 @@ task("mysql:restore", function () {
   $restore = $config["restore"]($file);
 
   # check for null schema
-  $schema_setting = key($schema);
   if (!$schema)
-    throw new ErrorException("A schema has not been specific for use. Please set the mysql.{$schema_setting} in your deployer configuration");
+    throw new ErrorException("A schema has not been specific for use. Please set the mysql.schema in your deployer configuration");
 
   # check for null dump file
-  $dump_file_setting = key($file);
   if (!$file)
-    throw new ErrorException("The mysql.{$dump_file_setting} has not been set. Please set this in your deployer configuration.");
+    throw new ErrorException("The mysql.dump_file has not been set. Please set this in your deployer configuration.");
 
   run("mysql -h {$host} -P {$port} -u {$username} -p{$password} {$schema} -e {$restore}");
 });
@@ -89,9 +85,8 @@ task("mysql:download", function () {
   $file = $config["dump_file"];
 
   # check for null dump file
-  $dump_file_setting = key($file);
   if (!$file)
-    throw new ErrorException("The mysql.{$dump_file_setting} has not been set. Please set this in your deployer configuration.");
+    throw new ErrorException("The mysql.dump_file has not been set. Please set this in your deployer configuration.");
 
   download("{$file}", "{{release_path}}/{$file}");
 });
@@ -103,9 +98,8 @@ task("mysql:upload", function () {
   $file = $config["dump_file"];
 
   # check for null dump file
-  $dump_file_setting = key($file);
   if (!$file)
-    throw new ErrorException("The mysql.{$dump_file_setting} has not been set. Please set this in your deployer configuration.");
+    throw new ErrorException("The mysql.dump_file has not been set. Please set this in your deployer configuration.");
 
   upload("{$file}", "{{release_path}}/{$file}");
 });
