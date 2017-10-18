@@ -1,0 +1,13 @@
+{
+    "name": "jordanbrauer/deployer-mysql",
+    "description": "An unofficial Deployer recipe containing a set of useful tasks for interacting with MySQL locally & remotely.",
+    "version": "1.0.0",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "jordanbrauer",
+            "email": "jbrauer.inc@gmail.com"
+        }
+    ]
+}
