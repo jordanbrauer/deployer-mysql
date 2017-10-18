@@ -17,7 +17,7 @@
 namespace Deployer;
 
 # configuration
-set('mysql', array(
+set("mysql", array(
   "host" => "localhost",
   "port" => 3306,
   "schema" => null,
@@ -33,8 +33,8 @@ set('mysql', array(
 ));
 
 # mysqldump
-desc('Dump the database to an SQL file');
-task('mysql:dump', function () {
+desc("Dump the database to an SQL file");
+task("mysql:dump", function () {
   $config = get("mysql");
   $host = $config["host"];
   $port = $config["port"];
@@ -58,8 +58,8 @@ task('mysql:dump', function () {
 });
 
 # mysql-un-dump?
-desc('Restore the database from an SQL file');
-task('mysql:restore', function () {
+desc("Restore the database from an SQL file");
+task("mysql:restore", function () {
   $config = get("mysql");
   $host = $config["host"];
   $port = $config["port"];
@@ -83,8 +83,8 @@ task('mysql:restore', function () {
 });
 
 # scp remote database dump file to local
-desc('Download the current remote SQL dump to local');
-task('mysql:download', function () {
+desc("Download the current remote SQL dump to local");
+task("mysql:download", function () {
   $config = get("mysql");
   $file = $config["dump_file"];
 
@@ -93,12 +93,12 @@ task('mysql:download', function () {
   if (!$file)
     throw new ErrorException("The mysql.{$dump_file_setting} has not been set. Please set this in your deployer configuration.");
 
-  download('{$file}', '{{release_path}}/{$file}');
+  download("{$file}", "{{release_path}}/{$file}");
 });
 
 # scp local database dump file to remote
-desc('Upload the current local SQL dump to remote');
-task('mysql:upload', function () {
+desc("Upload the current local SQL dump to remote");
+task("mysql:upload", function () {
   $config = get("mysql");
   $file = $config["dump_file"];
 
@@ -107,12 +107,12 @@ task('mysql:upload', function () {
   if (!$file)
     throw new ErrorException("The mysql.{$dump_file_setting} has not been set. Please set this in your deployer configuration.");
 
-  upload('{$file}', '{{release_path}}/{$file}');
+  upload("{$file}", "{{release_path}}/{$file}");
 });
 
 # fetch a fresh copy of the database
-desc('Fetch a fresh copy of the remote SQL dump');
-task('mysql:pull', [
-  'mysql:dump',
-  'mysql:download',
+desc("Fetch a fresh copy of the remote SQL dump");
+task("mysql:pull", [
+  "mysql:dump",
+  "mysql:download",
 ]);
